@@ -1,0 +1,19 @@
+{
+    "name": "mekari/esign-api-php",
+    "description": "PHP SDK for Mekari Sign API",
+    "authors": [
+        {
+            "name": "Ary",
+            "email": "arymp111@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "EsignApiPhp\\": "src/"
+        }
+    }
+}
