@@ -6,33 +6,16 @@ use EsignApiPhp\Configuration;
 use GuzzleHttp\Client;
 use Exception;
 
-/**
- * Class Auth
- * 
- * This class provides methods for handling authentication with the eSign API.
- */
-class Auth
+class PsreSign
 {
     private static $instance;
     private static $baseUrl;
-    private static $ssoUrl;
 
-    /**
-     * Auth constructor.
-     * 
-     * Initializes the base URL and SSO URL for the eSign API.
-     */
     public function __construct()
     {
         self::$baseUrl = Configuration::getBaseUrl();
-        self::$ssoUrl = Configuration::getSSOUrl();
     }
 
-    /**
-     * Get the instance of the Auth class.
-     * 
-     * @return Auth The instance of the Auth class.
-     */
     public static function getInstance()
     {
         if (!self::$instance) {
@@ -42,27 +25,39 @@ class Auth
     }
 
     /**
-     * Get the user authentication token.
-     * 
-     * @param string $code The authorization code.
-     * @return array The user authentication token.
-     * @throws Exception If an error occurs during the API request.
+     * Requests the PSRE sign for a document.
+     *
+     * @param string $doc The document to be signed.
+     * @param string $filename The name of the document file.
+     * @param array $signers An array of signers for the document.
+     * @param int $signing_order The signing order for the signers.
+     * @param string $callback_url The URL to receive callback notifications.
+     * @param string $token The authentication token.
+     * @return array The response data from the API.
+     * @throws Exception If there is an error with the API request.
      */
-    public function getUserAuthToken($code)
+    public function requestPsreSign($doc, $filename, $signers, $signing_order, $callback_url, $token)
     {
-        $url = self::$ssoUrl . 'auth/oauth2/token';
+        $url = self::$baseUrl . 'documents/request_psre_sign';
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json'
+        ];
+
         $data = [
-            'grant_type' => 'authorization_code',
-            'client_id' => Configuration::$clientId,
-            'client_secret' => Configuration::$clientSecret,
-            'code' => $code,
+            'doc' => $doc,
+            'filename' => $filename,
+            'signers' => $signers,
+            'signing_order' => $signing_order,
+            'callback_url' => $callback_url
         ];
 
         $client = new Client();
 
         $response = $client->post($url, [
-            'form_params' => $data,
-            'http_errors' => false
+            'headers' => $headers,
+            'json' => $data
         ]);
 
         $status = $response->getStatusCode();
@@ -88,27 +83,25 @@ class Auth
     }
 
     /**
-     * Get the refresh token.
-     * 
-     * @param string $refreshToken The refresh token.
-     * @return array The refresh token.
-     * @throws Exception If an error occurs during the API request.
+     * Generates the signing URL for a specific document.
+     *
+     * @param string $documentId The ID of the document.
+     * @param string $token The authentication token.
+     * @return array The response data containing the signing URL.
+     * @throws Exception If there is an error generating the signing URL.
      */
-    public function getRefreshToken($refreshToken)
+    public function generateSigningUrl($documentId, $token)
     {
-        $url = self::$ssoUrl . 'auth/oauth2/token';
-        $data = [
-            'grant_type' => 'refresh_token',
-            'client_id' => Configuration::$clientId,
-            'client_secret' => Configuration::$clientSecret,
-            'refresh_token' => $refreshToken,
+        $url = self::$baseUrl . 'documents/' . $documentId . '/generate_signing_url';
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $token
         ];
 
         $client = new Client();
 
         $response = $client->post($url, [
-            'form_params' => $data,
-            'http_errors' => false
+            'headers' => $headers
         ]);
 
         $status = $response->getStatusCode();

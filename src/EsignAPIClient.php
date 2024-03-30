@@ -16,4 +16,19 @@ class EsignApiClient
     {
         return Endpoint\Auth::getInstance();
     }
+
+    public function globalSign()
+    {
+        return Endpoint\GlobalSign::getInstance();
+    }
+
+    public function psreSign()
+    {
+        return Endpoint\PsreSign::getInstance();
+    }
+
+    public function stamping()
+    {
+        return Endpoint\Stamping::getInstance();
+    }
 }
