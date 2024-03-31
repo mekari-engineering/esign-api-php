@@ -226,3 +226,182 @@ try {
     echo 'Error: ' . $e->getMessage();
 }
 ```
+
+## Get Document List
+The `getDocumentList` method is part of the `Document class`. It's used to get a list of documents from the eSign API.
+
+###Parameters
+The method takes the following parameters:
+
++ $page: The page number.
++ $limit: The number of documents per page.
++ $token: The authentication token.
++ $category (optional): The category of the documents (global, psre).
++ $signing_status (optional): The signing status of the documents (in_progress, completed, voided, declined).
++ $stamping_status (optional): The stamping status of the documents (none, in_progress, pending, failed, success).
+
+### Return Value
+If the request is successful, the method returns an associative array containing the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `getDocumentList` method:
+
+```
+$document = $client->document();
+$page = 1;
+$limit = 10;
+$token = 'your-token';
+$category = 'your-category';
+$signing_status = 'your-signing-status';
+$stamping_status = 'your-stamping-status';
+
+try {
+    $data = $document->getDocumentList($page, $limit, $token, $category, $signing_status, $stamping_status);
+    echo 'Documents: ' . print_r($data, true);
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Get Document Detail
+The `getDocumentDetail` method is part of the `Document` class. It's used to get the details of a specific document from the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $documentId: The ID of the document.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns an associative array containing the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `getDocumentDetail` method:
+
+```
+$document = $client->document();
+$documentId = 'your-document-id';
+$token = 'your-token';
+
+try {
+    $data = $document->getDocumentDetail($documentId, $token);
+    echo 'Document Details: ' . print_r($data, true);
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Download Document
+The `downloadDocument` method is part of the `Document` class. It's used to download a specific document from the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $documentId: The ID of the document.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns the downloaded document. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `downloadDocument` method:
+
+```
+$document = $client->document();
+$documentId = 'your-document-id';
+$token = 'your-token';
+
+try {
+    $data = $document->downloadDocument($documentId, $token);
+    file_put_contents($documentId . '.pdf', $data);
+    echo 'Document downloaded successfully.';
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Resend Document
+The `resendDocument` method is part of the `Document` class. It's used to resend a specific document from the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $documentId: The ID of the document.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `resendDocument` method:
+
+```
+$document = $client->document();
+$documentId = 'your-document-id';
+$token = 'your-token';
+
+try {
+    $data = $document->resendDocument($documentId, $token);
+    echo 'Document resent successfully.';
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Void Document
+The `voidDocument` method is part of the `Document` class. It's used to void a specific document in the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $documentId: The ID of the document.
++ $token: The authentication token.
++ $reason: The reason for voiding the document.
+
+### Return Value
+If the request is successful, the method returns the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `voidDocument` method:
+
+```
+$document = $client->document();
+$documentId = 'your-document-id';
+$token = 'your-token';
+$reason = 'your-reason';
+
+try {
+    $data = $document->voidDocument($documentId, $token, $reason);
+    echo 'Document voided successfully.';
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Delete Document
+The `deleteDocument` method is part of the `Document` class. It's used to delete a specific document from the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $documentId: The ID of the document.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `deleteDocument` method:
+
+```
+$document = $client->document();
+$documentId = 'your-document-id';
+$token = 'your-token';
+
+try {
+    $data = $document->deleteDocument($documentId, $token);
+    echo 'Document deleted successfully.';
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```

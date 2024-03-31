@@ -31,4 +31,9 @@ class EsignApiClient
     {
         return Endpoint\Stamping::getInstance();
     }
+
+    public function document()
+    {
+        return Endpoint\Document::getInstance();
+    }
 }
