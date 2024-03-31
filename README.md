@@ -32,6 +32,8 @@ $auth = $client->auth();
 ?>
 ```
 
+# Authorization
+
 ## Get Auth Token
 The `getUserAuthToken` method is part of the Auth class. It's used to get a user authentication token from the eSign API.
 
@@ -88,6 +90,8 @@ try {
 ?>
 ```
 
+# Global Sign
+
 ## Request Global Sign
 The `requestGlobalSign` method is part of the `GlobalSign` class. It's used to request a global sign for a document from the eSign API.
 
@@ -125,6 +129,8 @@ try {
 }
 ?>
 ```
+
+# PSRE Sign
 
 ## Request PSRE Sign
 The `requestPsreSign` method is part of the `PsreSign` class. It's used to request a PSRE sign for a document from the eSign API.
@@ -193,7 +199,9 @@ try {
 }
 ```
 
-## Stamping
+# Stamping
+
+## Stamp
 The `stamp` method is part of the `Stamping` class. It's used to stamp a document with an annotation from the eSign API.
 
 ### Parameters
@@ -226,6 +234,8 @@ try {
     echo 'Error: ' . $e->getMessage();
 }
 ```
+
+# Document
 
 ## Get Document List
 The `getDocumentList` method is part of the `Document class`. It's used to get a list of documents from the eSign API.
@@ -401,6 +411,162 @@ $token = 'your-token';
 try {
     $data = $document->deleteDocument($documentId, $token);
     echo 'Document deleted successfully.';
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+# Auto Sign
+
+## Create Auto Sign
+The `createAutoSign` method is part of the `AutoSign` class. It's used to create an auto sign request in the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $docMakerEmails: An array of document maker emails.
++ $signerEmails: An array of signer emails.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `createAutoSign` method:
+
+```
+$autoSign = $client->autoSign();
+$docMakerEmails = ['docmaker1@example.com', 'docmaker2@example.com'];
+$signerEmails = ['signer1@example.com', 'signer2@example.com'];
+$token = 'your-token';
+
+try {
+    $data = $autoSign->createAutoSign($docMakerEmails, $signerEmails, $token);
+    echo 'AutoSign created successfully.';
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Update Auto Sign
+The `updateAutoSign` method is part of the `AutoSign` class. It's used to update an auto sign request in the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $id: The ID of the auto sign request.
++ $docMakerEmail: The email of the document maker.
++ $signerEmail: The email of the signer.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `updateAutoSign` method:
+
+```
+$autoSign = $client->autoSign();
+$id = 'your-autosign-id';
+$docMakerEmail = 'docmaker@example.com';
+$signerEmail = 'signer@example.com';
+$token = 'your-token';
+
+try {
+    $data = $autoSign->updateAutoSign($id, $docMakerEmail, $signerEmail, $token);
+    echo 'AutoSign updated successfully.';
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Delete Auto Sign
+The `deleteAutoSign` method is part of the `AutoSign` class. It's used to delete an auto sign request in the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $id: The ID of the auto sign request.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns true. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `deleteAutoSign` method:
+
+```
+$autoSign = $client->autoSign();
+$id = 'your-autosign-id';
+$token = 'your-token';
+
+try {
+    $result = $autoSign->deleteAutoSign($id, $token);
+    if ($result) {
+        echo 'AutoSign deleted successfully.';
+    }
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## Detail Auto Sign
+The `detailAutoSign` method is part of the `AutoSign` class. It's used to get the details of an auto sign request from the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $id: The ID of the auto sign request.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns an associative array containing the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `detailAutoSign` method:
+
+```
+$autoSign = $client->autoSign();
+$id = 'your-autosign-id';
+$token = 'your-token';
+
+try {
+    $data = $autoSign->detailAutoSign($id, $token);
+    echo 'AutoSign Details: ' . print_r($data, true);
+} catch (\Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
+## List Auto Sign
+The `listAutoSign` method is part of the `AutoSign` class. It's used to get a list of auto sign requests from the eSign API.
+
+### Parameters
+The method takes the following parameters:
+
++ $docMakerEmail: The email of the document maker.
++ $signerEmail: The email of the signer.
++ $page: The page number.
++ $limit: The number of items per page.
++ $token: The authentication token.
+
+### Return Value
+If the request is successful, the method returns an associative array containing the response data from the API. If the request fails, it throws an exception with an error message.
+
+### Usage
+Here's an example of how to use the `listAutoSign` method:
+
+```
+$autoSign = $client->autoSign();
+$docMakerEmail = 'docmaker@example.com';
+$signerEmail = 'signer@example.com';
+$page = 1;
+$limit = 10;
+$token = 'your-token';
+
+try {
+    $data = $autoSign->listAutoSign($docMakerEmail, $signerEmail, $page, $limit, $token);
+    echo 'AutoSign List: ' . print_r($data, true);
 } catch (\Exception $e) {
     echo 'Error: ' . $e->getMessage();
 }

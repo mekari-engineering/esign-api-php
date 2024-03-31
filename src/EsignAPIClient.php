@@ -36,4 +36,9 @@ class EsignApiClient
     {
         return Endpoint\Document::getInstance();
     }
+
+    public function autoSign()
+    {
+        return Endpoint\AutoSign::getInstance();
+    }
 }
