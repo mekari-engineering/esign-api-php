@@ -1,3 +1,14 @@
+# esign-api-php
+The esign-api-php is a PHP library that provides a convenient way to interact with Mekari eSign API. It simplifies the process of integrating eSign functionality into your PHP applications. With this SDK, you can easily create, manage, and sign documents using the eSign API.
+
+# Installing the SDK
+Run the following command to install the SDK
+
+```php
+composer require mekari/esign-api-php
+```
+
+
 # Initializing the EsignApiClient SDK
 The `EsignApiClient` class is the main entry point for interacting with the eSign API. Here's how to initialize it:
 
@@ -13,7 +24,7 @@ To initialize the `EsignApiClient`, you need to create a new instance of the `Es
 
 Here's an example:
 
-```
+```php
 <?php
 $clientId = 'your-client-id';
 $clientSecret = 'your-client-secret';
@@ -26,7 +37,7 @@ $client = new EsignApiPhp\EsignApiClient($clientId, $clientSecret, $production);
 # Next Steps
 After initializing the `EsignApiClient`, you can use its methods to interact with the eSign API. For example, you can use the `auth` method to get an instance of the `Auth` class, which provides methods for getting user authentication tokens and refresh tokens:
 
-```
+```php
 <?php
 $auth = $client->auth();
 ?>
@@ -40,7 +51,9 @@ The `getUserAuthToken` method is part of the Auth class. It's used to get a user
 ### Parameters
 The method takes one parameter:
 
-```$code: The authorization code.```
+```php
+$code: The authorization code.
+```
 
 ### Return Value
 If the request is successful, the method returns an associative array containing the response data from the API. If the request fails, it throws an exception with an error message.
@@ -48,7 +61,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `getUserAuthToken` method:
 
-```
+```php
 <?php
 $auth = $client->auth();
 $code = 'your-authorization-code';
@@ -68,7 +81,9 @@ The `getRefreshToken` method is part of the `Auth` class. It's used to get a new
 ### Parameters
 The method takes one parameter:
 
-```$refreshToken: The refresh token.```
+```php
+$refreshToken: The refresh token.
+```
 
 ### Return Value
 If the request is successful, the method returns an associative array containing the response data from the API. If the request fails, it throws an exception with an error message.
@@ -76,7 +91,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `getRefreshToken` method:
 
-```
+```php
 <?php
 $auth = $client->auth();
 $refreshToken = 'your-refresh-token';
@@ -111,7 +126,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `requestGlobalSign` method:
 
-```
+```php
 <?php
 $globalSign = $client->globalSign();
 $doc = 'your-document';
@@ -151,7 +166,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `requestPsreSign` method:
 
-```
+```php
 <?php
 $globalSign = $client->psreSign();
 $doc = 'your-document';
@@ -185,7 +200,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `generateSigningUrl` method:
 
-```
+```php
 <?php
 $psreSign = $client->psreSign();
 $documentId = 'your-document-id';
@@ -219,7 +234,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `stamp` method:
 
-```
+```php
 $stamping = $client->stamping();
 $doc = 'your-document';
 $filename = 'your-filename';
@@ -256,7 +271,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `getDocumentList` method:
 
-```
+```php
 $document = $client->document();
 $page = 1;
 $limit = 10;
@@ -288,7 +303,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `getDocumentDetail` method:
 
-```
+```php
 $document = $client->document();
 $documentId = 'your-document-id';
 $token = 'your-token';
@@ -316,7 +331,7 @@ If the request is successful, the method returns the downloaded document. If the
 ### Usage
 Here's an example of how to use the `downloadDocument` method:
 
-```
+```php
 $document = $client->document();
 $documentId = 'your-document-id';
 $token = 'your-token';
@@ -345,7 +360,7 @@ If the request is successful, the method returns the response data from the API.
 ### Usage
 Here's an example of how to use the `resendDocument` method:
 
-```
+```php
 $document = $client->document();
 $documentId = 'your-document-id';
 $token = 'your-token';
@@ -374,7 +389,7 @@ If the request is successful, the method returns the response data from the API.
 ### Usage
 Here's an example of how to use the `voidDocument` method:
 
-```
+```php
 $document = $client->document();
 $documentId = 'your-document-id';
 $token = 'your-token';
@@ -403,7 +418,7 @@ If the request is successful, the method returns the response data from the API.
 ### Usage
 Here's an example of how to use the `deleteDocument` method:
 
-```
+```php
 $document = $client->document();
 $documentId = 'your-document-id';
 $token = 'your-token';
@@ -434,7 +449,7 @@ If the request is successful, the method returns the response data from the API.
 ### Usage
 Here's an example of how to use the `createAutoSign` method:
 
-```
+```php
 $autoSign = $client->autoSign();
 $docMakerEmails = ['docmaker1@example.com', 'docmaker2@example.com'];
 $signerEmails = ['signer1@example.com', 'signer2@example.com'];
@@ -465,7 +480,7 @@ If the request is successful, the method returns the response data from the API.
 ### Usage
 Here's an example of how to use the `updateAutoSign` method:
 
-```
+```php
 $autoSign = $client->autoSign();
 $id = 'your-autosign-id';
 $docMakerEmail = 'docmaker@example.com';
@@ -495,7 +510,7 @@ If the request is successful, the method returns true. If the request fails, it 
 ### Usage
 Here's an example of how to use the `deleteAutoSign` method:
 
-```
+```php
 $autoSign = $client->autoSign();
 $id = 'your-autosign-id';
 $token = 'your-token';
@@ -525,7 +540,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `detailAutoSign` method:
 
-```
+```php
 $autoSign = $client->autoSign();
 $id = 'your-autosign-id';
 $token = 'your-token';
@@ -556,7 +571,7 @@ If the request is successful, the method returns an associative array containing
 ### Usage
 Here's an example of how to use the `listAutoSign` method:
 
-```
+```php
 $autoSign = $client->autoSign();
 $docMakerEmail = 'docmaker@example.com';
 $signerEmail = 'signer@example.com';
